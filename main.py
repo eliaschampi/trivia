@@ -1,6 +1,6 @@
 #las importaciones al principio
 import time
-
+import random
 
 #AQUI AGREGAMOS LA CLASE COLOR CON COLORES COMO PROPIEDAD
 class color:
@@ -36,7 +36,9 @@ def muestraMiLoading(cuanto):
         print(" * ", end='')
     print(color.FIN)
 
-
+def salirDelJuego(): 
+  exit()
+  
 def muestraLaAyuda():
     print(
         color.AMARILLO,
@@ -76,18 +78,6 @@ def configuraElPremio():
 
     desarrollaElJuego(premios[opcionPremio])
 
-def desarrollaElJuego():
-  #MENU DEL JUEGO
-  OP_PRINCIPAL = muestraElMenu()
-  
-  #VALIDAMOS
-  while OP_PRINCIPAL not in ["a", "c", "p"]:
-      OP_PRINCIPAL = input("Opcion incorrecta, ingresa nuevamente:")
-  
-  if OP_PRINCIPAL == "a":
-      muestraLaAyuda()
-  elif OP_PRINCIPAL == "c":
-      configuraElPremio()
     
 def jugarAhora(): 
   opciones = ["piedra","papel","tijera"]
@@ -97,11 +87,61 @@ def jugarAhora():
   print("2: papel.")
   print("3: tijera.")
   opcionUsuario = input("Ingresa aquí:")
-  if opcionUNR in ["1","2","3"]:
-    
+  if opcionUsuario in ["1","2","3"]:
+    opcionM = random.randint(1,3)
+    opcionU =  int(opcionUsuario)
+    print("--------")
+    print("Elijiste ", opciones[opcionU-1])
+    print("La máquina eligió\n", opciones[opcionM-1])
+    if opcionM == 1:
+      if opcionU == 1:
+        print("Empate!")
+      elif opcionU == 2:
+        print("Ganaste\nfelicidades!")
+      else:
+        print("Perdiste :(")
+    elif opcionM == 2:
+      if opcionU == 1:
+        print("Perdiste :(")
+      elif opcionU == 2:
+        print("Empate!")
+      else:
+        print("Ganaste\nfelicidades!")
+    else:
+      if opcionU == 1:
+        print("Ganaste\nfelicidades!")
+      elif opcionU == 2:
+        print("Perdiste :(")
+      else:
+        print("Empate!")
   else:
     print(color.ROJO, "perdiste", color.FIN)
+    
+  desarrollaElJuego()
   
+
+def desarrollaElJuego():
+  #MENU DEL JUEGO
+  OP_PRINCIPAL = muestraElMenu()
+  
+  #VALIDAMOS
+  chance_op = 0
+  while OP_PRINCIPAL not in ["a", "c", "p", "s"] and chance_op <= miconfiguracion.MAXIMO_INTENTOS:
+      chance_op = chance_op + 1
+      OP_PRINCIPAL = input("Opcion incorrecta, ingresa nuevamente:")
+
+  if chance_op == 3:
+    salirDelJuego()
+    
+  if OP_PRINCIPAL == "a":
+    muestraLaAyuda()
+  elif OP_PRINCIPAL == "c":
+    configuraElPremio()
+  elif OP_PRINCIPAL == "p":
+    jugarAhora()
+  else:
+    salirDelJuego()
+
 
 #INICIO DEL PROGRAMA
 #Aqui mostramos en la pantalla el texto de bienvenida
