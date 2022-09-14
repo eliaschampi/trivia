@@ -17,9 +17,10 @@ class color:
 
 
 #ESTABLECEMOS PREMIO POR DEFECTO
-PREMIO = "Una entrada al cine"
-MAXIMO_INTENTOS = 3
-
+class miconfiguracion:
+  PREMIO = "Una entrada al cine"
+  MAXIMO_INTENTOS = 3
+  
 
 #mis funciones
 def muestraMisLineas():
@@ -31,7 +32,7 @@ def muestraMiLoading(cuanto):
     print(color.CYAN)
     while contador < cuanto:
         contador = contador + 1
-        time.sleep(0.5)
+        time.sleep(0.1)
         print(" * ", end='')
     print(color.FIN)
 
@@ -45,7 +46,17 @@ def muestraLaAyuda():
     print("1 va a ser piedra.")
     print("2 va a ser papel.")
     print("3 va a ser tijera.", color.FIN)
+    desarrollaElJuego(miconfiguracion.PREMIO)
 
+def muestraElMenu():
+  print(color.NEGRITA, "MENU DEL JUEGO:")
+  muestraMisLineas()
+  print("a: Mostrar ayuda")
+  print("c: Configurar premio")
+  print("p: Jugar ahora")
+  print("s: Salir del juego")
+  return input("Ingresa una opción:")
+  
 
 def configuraElPremio():
     print(color.AMARILLO, "Selecciona un premio:")
@@ -58,13 +69,39 @@ def configuraElPremio():
     print("p: Una pizza")
     print("m: Una entrada al cine", color.FIN)
     opcionPremio = input("Ingresa una opcion:")
-    intentosopcion = 0
-    while opcionPremio not in ["c", "p", "m"
-                               ] or intentosopcion <= MAXIMO_INTENTOS:
-        intentosopcion = intentosopcion + 1
+    intento = 0
+    while opcionPremio not in ["c", "p", "m"] and intento <= miconfiguracion.MAXIMO_INTENTOS:
+        intento = intento + 1
         opcionPremio = input("Opcion incorrecta, Ingresa c, p o m:")
-    PREMIO = premios[opcionPremio]
 
+    desarrollaElJuego(premios[opcionPremio])
+
+def desarrollaElJuego():
+  #MENU DEL JUEGO
+  OP_PRINCIPAL = muestraElMenu()
+  
+  #VALIDAMOS
+  while OP_PRINCIPAL not in ["a", "c", "p"]:
+      OP_PRINCIPAL = input("Opcion incorrecta, ingresa nuevamente:")
+  
+  if OP_PRINCIPAL == "a":
+      muestraLaAyuda()
+  elif OP_PRINCIPAL == "c":
+      configuraElPremio()
+    
+def jugarAhora(): 
+  opciones = ["piedra","papel","tijera"]
+  #le muestro las opciones al user
+  print(color.AZUL, "Inicia el juego! Elije una opcion:")
+  print("1: piedra.")
+  print("2: papel.")
+  print("3: tijera.")
+  opcionUsuario = input("Ingresa aquí:")
+  if opcionUNR in ["1","2","3"]:
+    
+  else:
+    print(color.ROJO, "perdiste", color.FIN)
+  
 
 #INICIO DEL PROGRAMA
 #Aqui mostramos en la pantalla el texto de bienvenida
@@ -82,20 +119,4 @@ print(color.VERDE,
 #carga el juego!!!
 muestraMiLoading(15)
 
-#MENU DEL JUEGO
-print(color.NEGRITA, "MENU DEL JUEGO:")
-muestraMisLineas()
-print("a: Mostrar ayuda")
-print("c: Configurar premio")
-print("p: Jugar ahora")
-print("s: Salir del juego")
-opcionPrincipal = input("Ingresa una opción:") or "p"
-
-#VALIDAMOS
-while opcionPrincipal not in ["a", "c", "p"]:
-    opcionPrincipal = input("Opcion incorrecta, ingresa nuevamente:") or "p"
-
-if opcionPrincipal == "a":
-    muestraLaAyuda()
-elif opcionPrincipal == "c":
-    configuraElPremio()
+desarrollaElJuego(miconfiguracion.PREMIO)
