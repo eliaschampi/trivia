@@ -48,7 +48,7 @@ def muestraLaAyuda():
     print("1 va a ser piedra.")
     print("2 va a ser papel.")
     print("3 va a ser tijera.", color.FIN)
-    desarrollaElJuego(miconfiguracion.PREMIO)
+    desarrollaElJuego()
 
 def muestraElMenu():
   print(color.NEGRITA, "MENU DEL JUEGO:")
@@ -75,8 +75,8 @@ def configuraElPremio():
     while opcionPremio not in ["c", "p", "m"] and intento <= miconfiguracion.MAXIMO_INTENTOS:
         intento = intento + 1
         opcionPremio = input("Opcion incorrecta, Ingresa c, p o m:")
-
-    desarrollaElJuego(premios[opcionPremio])
+    miconfiguracion.PREMIO = premios[opcionPremio]
+    desarrollaElJuego()
 
     
 def jugarAhora(): 
@@ -159,4 +159,4 @@ print(color.VERDE,
 #carga el juego!!!
 muestraMiLoading(15)
 
-desarrollaElJuego(miconfiguracion.PREMIO)
+desarrollaElJuego()
