@@ -89,10 +89,10 @@ def jugarAhora():
   opcionUsuario = input("Ingresa aquí:")
   if opcionUsuario in ["1","2","3"]:
     opcionM = random.randint(1,3)
-    opcionU =  int(opcionUsuario)
+    opcionU = int(opcionUsuario)
     print("--------")
-    print("Elijiste ", opciones[opcionU-1])
-    print("La máquina eligió\n", opciones[opcionM-1])
+    print(color.VERDE, "Elijiste: ", opciones[opcionU-1])
+    print("La máquina eligió: ", opciones[opcionM-1], color.FIN)
     if opcionM == 1:
       if opcionU == 1:
         print("Empate!")
