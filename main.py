@@ -1,41 +1,44 @@
-#las importaciones al principio
+# las importaciones al principio
 import time
 import random
 
 
-#AQUI AGREGAMOS LA CLASE COLOR CON COLORES COMO PROPIEDAD
+# AQUI AGREGAMOS LA CLASE COLOR CON COLORES COMO PROPIEDAD
 class color:
-    ROSA = '\033[95m'
-    CYAN = '\033[96m'
-    CYANOSCURO = '\033[36m'
-    AZUL = '\033[94m'
-    VERDE = '\033[92m'
-    AMARILLO = '\033[93m'
-    ROJO = '\033[91m'
-    NEGRITA = '\033[1m'
-    LINEA = '\033[4m'
-    FIN = '\033[0m'
+    ROSA = "\033[95m"
+    CYAN = "\033[96m"
+    CYANOSCURO = "\033[36m"
+    AZUL = "\033[94m"
+    VERDE = "\033[92m"
+    AMARILLO = "\033[93m"
+    ROJO = "\033[91m"
+    NEGRITA = "\033[1m"
+    LINEA = "\033[4m"
+    FIN = "\033[0m"
+
 
 PUNTUACION_USUARIO = 0
 
-#ESTABLECEMOS PREMIO POR DEFECTO
+# ESTABLECEMOS PREMIO POR DEFECTO
 class miconfiguracion:
     PREMIO = "Una entrada al CINE"
     MAXIMO_INTENTOS = 3
 
 
-#mis funciones
+# mis funciones
 def muestraMisLineas():
     print(color.ROSA, "-----------------------", color.FIN)
 
 
-def muestraMiLoading(cuanto):
-    contador = 0
-    print(color.CYAN)
-    while contador < cuanto:
-        contador = contador + 1
-        time.sleep()
-        print(" * ", end='')
+def muestraMiProgresbar(cuanto):
+    for i in range(1, cuanto + 1):
+        time.sleep(0.1)
+        ancho = "[{}{}] - {}\r".format(
+            (i * " * "),
+            ((cuanto - i) * " - "),
+            (("{:0.2f}".format(((i) * (100 / cuanto))) + "%")),
+        )
+        print(color.ROSA, ancho, end="")
     print(color.FIN)
 
 
@@ -46,7 +49,7 @@ def salirDelJuego():
 def muestraLaAyuda():
     print(
         color.AMARILLO,
-        "Piedra papel o tijera\n Es un juego para una decisión rapida entre dos personas."
+        "Piedra papel o tijera\n Es un juego para una decisión rapida entre dos personas.",
     )
     print("Debes ingresar una de estas tres opciones:")
     print("1 va a ser piedra.")
@@ -67,19 +70,16 @@ def muestraElMenu():
 
 def configuraElPremio():
     print(color.AMARILLO, "Selecciona un premio:")
-    premios = {
-        "c": "Un cafecito",
-        "p": "Una pizza",
-        "m": "Una entrada al cine"
-    }
+    premios = {"c": "Un cafecito", "p": "Una pizza", "m": "Una entrada al cine"}
     print("c: Un cafecito")
     print("p: Una pizza")
     print("m: Una entrada al cine", color.FIN)
     opcionPremio = input("Ingresa una opcion:")
     intento = 0
-    while opcionPremio not in [
-            "c", "p", "m"
-    ] and intento <= miconfiguracion.MAXIMO_INTENTOS:
+    while (
+        opcionPremio not in ["c", "p", "m"]
+        and intento <= miconfiguracion.MAXIMO_INTENTOS
+    ):
         intento = intento + 1
         opcionPremio = input("Opcion incorrecta, Ingresa c, p o m:")
     miconfiguracion.PREMIO = premios[opcionPremio]
@@ -88,7 +88,7 @@ def configuraElPremio():
 
 def jugarAhora():
     opciones = ["piedra", "papel", "tijera"]
-    #le muestro las opciones al user
+    # le muestro las opciones al user
     print(color.AZUL, "Inicia el juego! Elije una opcion:")
     print("1: piedra.")
     print("2: papel.")
@@ -128,14 +128,15 @@ def jugarAhora():
 
 
 def desarrollaElJuego():
-    #MENU DEL JUEGO
+    # MENU DEL JUEGO
     OP_PRINCIPAL = muestraElMenu()
 
-    #VALIDAMOS
+    # VALIDAMOS
     chance_op = 0
-    while OP_PRINCIPAL not in [
-            "a", "c", "p", "s"
-    ] and chance_op <= miconfiguracion.MAXIMO_INTENTOS:
+    while (
+        OP_PRINCIPAL not in ["a", "c", "p", "s"]
+        and chance_op <= miconfiguracion.MAXIMO_INTENTOS
+    ):
         chance_op = chance_op + 1
         OP_PRINCIPAL = input("Opcion incorrecta, ingresa nuevamente:")
 
@@ -152,20 +153,22 @@ def desarrollaElJuego():
         salirDelJuego()
 
 
-#INICIO DEL PROGRAMA
-#Aqui mostramos en la pantalla el texto de bienvenida
+# INICIO DEL PROGRAMA
+# Aqui mostramos en la pantalla el texto de bienvenida
 print(color.NEGRITA, "Hola! Bienvenido a mi trivia")
-#llamamos nuestra funcion aqui
+# llamamos nuestra funcion aqui
 muestraMisLineas()
-#Obtenemos el nombre aqui
+# Obtenemos el nombre aqui
 name = input("¿Me podrías decir como quieres que te llame?\nIngresa Aqui:")
 
-#Damos bienvenida
-print(color.VERDE,
-      "Bienvenido " + name + ", Ahora vamos a jugar piedra papel o tijeras",
-      color.FIN)
+# Damos bienvenida
+print(
+    color.VERDE,
+    "Bienvenido " + name + ", Ahora vamos a jugar piedra papel o tijeras",
+    color.FIN,
+)
 
-#carga el juego!!!
-muestraMiLoading(15)
+# carga el juego!!!
+muestraMiProgresbar(15)
 
 desarrollaElJuego()
