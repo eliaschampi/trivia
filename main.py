@@ -17,10 +17,8 @@ class color:
     FIN = "\033[0m"
 
 
-PUNTUACION_USUARIO = 0
-
 # ESTABLECEMOS PREMIO POR DEFECTO
-class miconfiguracion:
+class config:
     PREMIO = "Una entrada al CINE"
     MAXIMO_INTENTOS = 3
 
@@ -47,43 +45,49 @@ def salirDelJuego():
 
 
 def muestraLaAyuda():
+    print(color.AMARILLO)
+    print("Este un juego para obtener una decisión rapida entre dos personas.")
+    print("En esta trivia jugaras con la máquina.")
     print(
-        color.AMARILLO,
-        "Piedra papel o tijera\n Es un juego para una decisión rapida entre dos personas.",
-    )
-    print("Debes ingresar una de estas tres opciones:")
-    print("1 va a ser piedra.")
-    print("2 va a ser papel.")
-    print("3 va a ser tijera.", color.FIN)
+        "Debes elegir una de las tres opciones dada(piedra, papel o tijera).",
+        color.FIN)
     desarrollaElJuego()
 
 
 def muestraElMenu():
-    print(color.NEGRITA, "MENU DEL JUEGO:")
+    print(color.NEGRITA, "\n", "MENU DEL JUEGO:")
     muestraMisLineas()
     print("a: Mostrar ayuda")
     print("c: Configurar premio")
-    print("p: Jugar ahora")
+    print("j: Jugar ahora")
     print("s: Salir del juego")
     return input("Ingresa una opción:")
 
 
 def configuraElPremio():
-    print(color.AMARILLO, "Selecciona un premio:")
-    premios = {"c": "Un cafecito", "p": "Una pizza", "m": "Una entrada al cine"}
+    print("\n", color.AMARILLO)
+    print("Tu premio esta configurado a: (" + config.PREMIO + "). Para cambiar selecciona un nuevo premio", color.AMARILLO)
+    premios = {
+        "c": "Un cafecito",
+        "p": "Una pizza",
+        "m": "Una entrada al cine"
+    }
     print("c: Un cafecito")
     print("p: Una pizza")
     print("m: Una entrada al cine", color.FIN)
     opcionPremio = input("Ingresa una opcion:")
     intento = 0
-    while (
-        opcionPremio not in ["c", "p", "m"]
-        and intento <= miconfiguracion.MAXIMO_INTENTOS
-    ):
+    while (opcionPremio not in ["c", "p", "m"]
+           and intento <= config.MAXIMO_INTENTOS):
         intento = intento + 1
         opcionPremio = input("Opcion incorrecta, Ingresa c, p o m:")
-    miconfiguracion.PREMIO = premios[opcionPremio]
+    config.PREMIO = premios[opcionPremio]
+    print(color.VERDE, "Correctamente cambiado", color.FIN)
     desarrollaElJuego()
+
+def mostrarGanaste():
+  print(color.NEGRITA, "Ganaste!")
+  print(color.VERDE, "Te debo ", config.PREMIO, color.FIN, "\n")
 
 
 def jugarAhora():
@@ -98,27 +102,27 @@ def jugarAhora():
         opcionM = random.randint(1, 3)
         opcionU = int(opcionUsuario)
         print("--------")
-        print(color.VERDE, "Elijiste: ", opciones[opcionU - 1])
+        print("Elijiste: ", opciones[opcionU - 1], color.VERDE)
         print("La máquina eligió: ", opciones[opcionM - 1], color.FIN)
         if opcionM == 1:
             if opcionU == 1:
                 print("Empate!")
             elif opcionU == 2:
-                print("Ganaste\nfelicidades!")
+                mostrarGanaste()
             else:
-                print("Perdiste :(")
+                print("Perdiste")
         elif opcionM == 2:
             if opcionU == 1:
-                print("Perdiste :(")
+                print("Perdiste")
             elif opcionU == 2:
                 print("Empate!")
             else:
-                print("Ganaste\nfelicidades!")
+                mostrarGanaste()
         else:
             if opcionU == 1:
-                print("Ganaste\nfelicidades!")
+                mostrarGanaste()
             elif opcionU == 2:
-                print("Perdiste :(")
+                print("Perdiste")
             else:
                 print("Empate!")
     else:
@@ -133,10 +137,8 @@ def desarrollaElJuego():
 
     # VALIDAMOS
     chance_op = 0
-    while (
-        OP_PRINCIPAL not in ["a", "c", "p", "s"]
-        and chance_op <= miconfiguracion.MAXIMO_INTENTOS
-    ):
+    while (OP_PRINCIPAL not in ["a", "c", "j", "s"]
+           and chance_op <= config.MAXIMO_INTENTOS):
         chance_op = chance_op + 1
         OP_PRINCIPAL = input("Opcion incorrecta, ingresa nuevamente:")
 
@@ -147,7 +149,7 @@ def desarrollaElJuego():
         muestraLaAyuda()
     elif OP_PRINCIPAL == "c":
         configuraElPremio()
-    elif OP_PRINCIPAL == "p":
+    elif OP_PRINCIPAL == "j":
         jugarAhora()
     else:
         salirDelJuego()
@@ -169,6 +171,6 @@ print(
 )
 
 # carga el juego!!!
-muestraMiProgresbar(15)
+muestraMiProgresbar(5)
 
 desarrollaElJuego()
