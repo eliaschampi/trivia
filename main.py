@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 #Aqui mostramos en la pantalla el texto de bienvenida
 print("Hola! Bienvenido a mi trivia")
-=======
+
 # las importaciones al principio
 import time
 import random
@@ -70,7 +69,9 @@ def muestraElMenu():
 
 def configuraElPremio():
     print("\n", color.AMARILLO)
-    print("Tu premio esta configurado a: (" + config.PREMIO + "). Para cambiar selecciona un nuevo premio", color.AMARILLO)
+    print(
+        "Tu premio esta configurado a: (" + config.PREMIO +
+        "). Para cambiar selecciona un nuevo premio", color.AMARILLO)
     premios = {
         "c": "Un cafecito",
         "p": "Una pizza",
@@ -89,9 +90,10 @@ def configuraElPremio():
     print(color.VERDE, "Correctamente cambiado", color.FIN)
     desarrollaElJuego()
 
+
 def mostrarGanaste():
-  print(color.NEGRITA, "Ganaste!")
-  print(color.VERDE, "Te debo ", config.PREMIO, color.FIN, "\n")
+    print(color.NEGRITA, "Ganaste!")
+    print(color.VERDE, "Te debo ", config.PREMIO, color.FIN, "\n")
 
 
 def jugarAhora():
@@ -178,4 +180,3 @@ print(
 muestraMiProgresbar(5)
 
 desarrollaElJuego()
->>>>>>> dev
