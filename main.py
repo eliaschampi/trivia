@@ -23,7 +23,7 @@ class color:
 # ESTABLECEMOS PREMIO POR DEFECTO
 class config:
     PREMIO = "Una entrada al CINE"
-    MAXIMO_INTENTOS = 3
+    MAX_INTENTOS = 2
 
 
 # mis funciones
@@ -44,6 +44,7 @@ def muestraMiProgresbar(cuanto):
 
 
 def salirDelJuego():
+    print(color.ROJO, "Intentos superados", color.FIN)
     exit()
 
 
@@ -80,13 +81,16 @@ def configuraElPremio():
     print("c: Un cafecito")
     print("p: Una pizza")
     print("m: Una entrada al cine", color.FIN)
-    opcionPremio = input("Ingresa una opcion:")
+    opPremio = input("Ingresa una opcion:")
     intento = 0
-    while (opcionPremio not in ["c", "p", "m"]
-           and intento <= config.MAXIMO_INTENTOS):
+    ops1 = ["c", "p", "m"]
+    while (opPremio not in ops1 and intento <= config.MAX_INTENTOS):
         intento = intento + 1
-        opcionPremio = input("Opcion incorrecta, Ingresa c, p o m:")
-    config.PREMIO = premios[opcionPremio]
+        opPremio = input("Opcion incorrecta, Ingresa c, p o m:")
+    if opPremio not in ops1:
+        salirDelJuego()
+
+    config.PREMIO = premios[opPremio]
     print(color.VERDE, "Correctamente cambiado", color.FIN)
     desarrollaElJuego()
 
@@ -140,15 +144,14 @@ def jugarAhora():
 def desarrollaElJuego():
     # MENU DEL JUEGO
     OP_PRINCIPAL = muestraElMenu()
-
+    ops = ["a", "c", "j", "s"]
     # VALIDAMOS
     chance_op = 0
-    while (OP_PRINCIPAL not in ["a", "c", "j", "s"]
-           and chance_op <= config.MAXIMO_INTENTOS):
+    while (OP_PRINCIPAL not in ops and chance_op <= config.MAX_INTENTOS):
         chance_op = chance_op + 1
         OP_PRINCIPAL = input("Opcion incorrecta, ingresa nuevamente:")
 
-    if chance_op == 3:
+    if OP_PRINCIPAL not in ops:
         salirDelJuego()
 
     if OP_PRINCIPAL == "a":
@@ -169,12 +172,20 @@ muestraMisLineas()
 # Obtenemos el nombre aqui
 name = input("¿Me podrías decir como quieres que te llame?\nIngresa Aqui:")
 
+lin = 0
+while name == "" and lin <= config.MAX_INTENTOS:
+    lin = lin + 1
+    name = input("Tu nombre es obligatorio:")
 # Damos bienvenida
-print(
-    color.VERDE,
-    "Bienvenido " + name + ", Ahora vamos a jugar piedra papel o tijeras",
-    color.FIN,
-)
+
+if name == "":
+    salirDelJuego()
+else:
+    print(
+        color.VERDE,
+        "Bienvenido " + name + ", Ahora vamos a jugar piedra papel o tijeras",
+        color.FIN,
+    )
 
 # carga el juego!!!
 muestraMiProgresbar(5)
