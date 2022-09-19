@@ -100,6 +100,12 @@ def mostrarGanaste():
     print(color.VERDE, "Te debo ", config.PREMIO, color.FIN, "\n")
 
 
+def despedida():
+    print(color.VERDE,
+          "Muchas gracias por jugar piedra papel o tijera. saludos")
+    exit()
+
+
 def jugarAhora():
     opciones = ["piedra", "papel", "tijera"]
     # le muestro las opciones al user
@@ -137,7 +143,6 @@ def jugarAhora():
                 print("Empate!")
     else:
         print(color.ROJO, "perdiste", color.FIN)
-
     desarrollaElJuego()
 
 
@@ -161,7 +166,7 @@ def desarrollaElJuego():
     elif OP_PRINCIPAL == "j":
         jugarAhora()
     else:
-        salirDelJuego()
+        despedida()
 
 
 # INICIO DEL PROGRAMA
@@ -183,7 +188,8 @@ if name == "":
 else:
     print(
         color.VERDE,
-        "Bienvenido " + name + ", Ahora vamos a jugar piedra papel o tijeras",
+        "☺️Bienvenido☺️ " + name +
+        ", Ahora vamos a jugar piedra papel o tijeras",
         color.FIN,
     )
 
