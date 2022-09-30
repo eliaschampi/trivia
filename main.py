@@ -1,6 +1,3 @@
-#Aqui mostramos en la pantalla el texto de bienvenida
-print("Hola! Bienvenido a mi trivia")
-
 # las importaciones al principio
 import time
 import random
@@ -52,9 +49,8 @@ def muestraLaAyuda():
     print(color.AMARILLO)
     print("Este un juego para obtener una decisión rapida entre dos personas.")
     print("En esta trivia jugaras con la máquina.")
-    print(
-        "Debes elegir una de las tres opciones dada(piedra, papel o tijera).",
-        color.FIN)
+    print("Debes elegir una de las tres opciones: piedra, papel o tijera.",
+          color.FIN)
     desarrollaElJuego()
 
 
@@ -172,10 +168,11 @@ def desarrollaElJuego():
 # INICIO DEL PROGRAMA
 # Aqui mostramos en la pantalla el texto de bienvenida
 print(color.NEGRITA, "Hola! Bienvenido a mi trivia")
+print("Ahora vamos a jugar piedra papel o tijeras")
 # llamamos nuestra funcion aqui
 muestraMisLineas()
 # Obtenemos el nombre aqui
-name = input("¿Me podrías decir como quieres que te llame?\nIngresa Aqui:")
+name = input("Ingresa tu nombre: ")
 
 lin = 0
 while name == "" and lin <= config.MAX_INTENTOS:
@@ -188,8 +185,7 @@ if name == "":
 else:
     print(
         color.VERDE,
-        "☺️Bienvenido☺️ " + name +
-        ", Ahora vamos a jugar piedra papel o tijeras",
+        "☺️Bienvenido☺️ " + name,
         color.FIN,
     )
 
