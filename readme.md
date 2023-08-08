@@ -12,7 +12,7 @@ MI proyecto solo contiene dos archivos:
 ## ¿Como ejecutar?
 
 Clona la rama master de este proyecto con:
-> **git clone https://github.com/eliaschampi/Trivia-PiedraPapeTijera.git**
+> **git clone https://github.com/eliaschampi/trivia.git**
 Luego ejecute el código en el terminal(debe tener instalado python en su ordenador)
 
 ## Agradecimientos
